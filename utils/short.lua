@@ -1,12 +1,13 @@
 local _M = {}
 
+local utils = require "utils.utils"
 local redis = require "utils.redis"
 local config = require "config.config"
 
 function _M.setUrl(self, url)
     local shortUrl = getShortUrl(url)
     redis:set("su_" .. shortUrl, url)
-    ngx.say(shortUrl)
+    ngx.say(config["domain"] .. shortUrl)
 end
 
 function _M.getUrl(self, uri)
@@ -19,11 +20,13 @@ function _M.getUrl(self, uri)
 end
 
 function getShortUrl(url)
-    return config["domain"] .. "Axi02t"
+    local n = math.random(1000000, 1000000000000)
+    ngx.say(n)
+    return utils:convert10To62(n)
 end
 
 function getOriUrl(uri)
-    return "new url"
+    return utils:convert62To10(uri)
 end
 
 return _M

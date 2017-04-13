@@ -1,6 +1,12 @@
 local _M = {}
 
+local config = require "config.config"
+
 function _M.get(self, k)
+    if config["enable_redis"] == false then
+        return nil
+    end
+
     local res = ngx.location.capture("/_get",{
         args = {key = k}
     })
@@ -16,6 +22,10 @@ function _M.get(self, k)
 end
 
 function _M.set(self, k, v)
+    if config["enable_redis"] == false then
+        return false
+    end
+
     local res = ngx.location.capture("/_set",{
             args = {key = k, val = v}
     })

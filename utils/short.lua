@@ -4,13 +4,13 @@ local utils = require "utils.utils"
 local redis = require "utils.redis"
 local config = require "config.config"
 
-function _M.setUrl(self, url)
+function _M:setUrl( url)
     local shortUrl = getShortUrl(url)
     redis:set("su_" .. shortUrl, url)
-    ngx.say(config["domain"] .. shortUrl)
+    ngx.say(config.domain .. shortUrl)
 end
 
-function _M.getUrl(self, uri)
+function _M:getUrl( uri)
     local uri = string.sub(uri, 2)
     local oriUrl = redis:get("su_" .. uri)
     if oriUrl == nil then

@@ -1,18 +1,28 @@
-local _M = {}
+return {
+    -- domain
+    domain = "http://www.shorturl.com/",
+    
+    -- if enable redis
+    enable_redis = true,
 
-local mysql = {}
-mysql["host"] = "192.168.41.128"
-mysql["port"] = 3550
-mysql["user"] = "root"
-mysql["pass"] = "123456"
+    -- mysql config
+    mysql = {
+        host = "192.168.41.128",
+        port = 3550,
+        dbname = "shorturl",
+        user = "root",
+        passwd = "123456",
+        timeout = 5000,
+        max_packet_size = 1024 * 1024        
+    },
 
--- domain
-_M["domain"] = "http://www.shorturl.com/"
+    -- mysql pool config
+    mysql_pool = {
+        -- 20s
+        max_idle_timeout = 20000,
+        
+        -- connection pool size
+        pool_size = 50
+    }
 
--- if enable redis
-_M["enable_redis"] = true
-
--- mysql
-_M["mysql"]  = mysql
-
-return _M
+}

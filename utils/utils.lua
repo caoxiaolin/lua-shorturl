@@ -1,7 +1,7 @@
 local _M = {}
 
 -- 10 to 62
-function _M.convert10To62(self, num)
+function _M:convert10To62(num)
     local res = ""
     local ys = 0
     local s = math.abs(num)
@@ -15,7 +15,7 @@ function _M.convert10To62(self, num)
 end
 
 -- 62 to 10
-function _M.convert62To10(self, str)
+function _M:convert62To10(str)
     local res = 0
     local len = string.len(str)
     for i=1,#str do

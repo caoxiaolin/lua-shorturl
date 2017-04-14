@@ -2,8 +2,8 @@ local _M = {}
 
 local config = require "config.config"
 
-function _M.get(self, k)
-    if config["enable_redis"] == false then
+function _M:get(k)
+    if config.enable_redis == false then
         return nil
     end
 
@@ -21,8 +21,8 @@ function _M.get(self, k)
     end
 end
 
-function _M.set(self, k, v)
-    if config["enable_redis"] == false then
+function _M:set(k, v)
+    if config.enable_redis == false then
         return false
     end
 

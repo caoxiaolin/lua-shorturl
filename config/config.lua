@@ -3,7 +3,7 @@ return {
     domain = "http://www.shorturl.com/",
     
     -- if enable redis
-    enable_redis = false,
+    enable_redis = true,
 
     -- mysql config
     mysql = {

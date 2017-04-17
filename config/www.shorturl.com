@@ -19,6 +19,7 @@ server {
         set_unescape_uri $key $arg_key;
         set_unescape_uri $val $arg_val;
         redis2_query set $key $val;
+        redis2_query expire $key 86400;
         redis2_pass redis_pool;
     }
 

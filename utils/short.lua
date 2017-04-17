@@ -2,15 +2,16 @@ local _M = {}
 
 local utils = require "utils.utils"
 local redis = require "utils.redis"
+local db = require "utils.db"
 local config = require "config.config"
 
-function _M:setUrl( url)
+function _M:setUrl(url)
     local shortUrl = getShortUrl(url)
     redis:set("su_" .. shortUrl, url)
     ngx.say(config.domain .. shortUrl)
 end
 
-function _M:getUrl( uri)
+function _M:getUrl(uri)
     local uri = string.sub(uri, 2)
     local oriUrl = redis:get("su_" .. uri)
     if oriUrl == nil then
@@ -20,13 +21,14 @@ function _M:getUrl( uri)
 end
 
 function getShortUrl(url)
-    local n = math.random(1000000, 1000000000000)
-    ngx.say(n)
-    return utils:convert10To62(n)
+    local res, err = db:insert(url)
+    return utils:convert10To62(res)
 end
 
 function getOriUrl(uri)
-    return utils:convert62To10(uri)
+    local id = utils:convert62To10(uri)
+    local res, err = db:query(id)
+    return res
 end
 
 return _M

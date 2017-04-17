@@ -5,7 +5,7 @@ function _M:convert10To62(num)
     local res = ""
     local ys = 0
     local s = math.abs(num)
-    while s > 1 do
+    while s > 0 do
         local tmp = math.floor(s/62)
         ys = s - tmp*62
         s = tmp

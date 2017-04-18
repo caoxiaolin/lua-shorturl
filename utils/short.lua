@@ -12,6 +12,9 @@ function _M:setUrl(url)
 end
 
 function _M:getUrl(uri)
+    if uri == "/" then
+        return 0
+    end
     local uri = string.sub(uri, 2)
     local oriUrl = redis:get("su_" .. uri)
     if oriUrl == nil then

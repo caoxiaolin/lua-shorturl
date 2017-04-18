@@ -13,7 +13,6 @@ return {
             database = "shorturl",
             user = "root",
             password = "123456",
-            timeout = 5000,
             max_packet_size = 1024 * 1024
         },
         timeout = 5000,

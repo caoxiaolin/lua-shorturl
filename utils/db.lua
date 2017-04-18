@@ -31,6 +31,7 @@ function _M:exec(sql)
     return res, err, errno, sqlstate
 end
 
+-- query
 function _M:query(id)
     local sql = "SELECT * FROM `urls` WHERE id = " .. ngx.quote_sql_str(id)
     local res, err, errno, sqlstate = self:exec(sql)
@@ -41,6 +42,7 @@ function _M:query(id)
     end
 end
 
+-- insert
 function _M:insert(url)
     local sql = "INSERT INTO `urls` (url) VALUES (" .. ngx.quote_sql_str(url) .. ")"
     local res, err, errno, sqlstate = self:exec(sql)

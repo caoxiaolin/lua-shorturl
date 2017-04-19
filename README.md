@@ -9,15 +9,14 @@ mysql存储原始url，自增ID转62进制作为短链，redis缓存url，时效
 
 # e.g.
 
-生成一个短链，原始链接：http://www.taobao.com
+* 生成一个短链，原始链接：http://www.taobao.com
 
-rong@debian:~$ curl -d "url=http://www.taobao.com" "http://www.shorturl.com/"
+    rong@debian:~$ curl -d "url=http://www.taobao.com" "http://www.shorturl.com/"
+    http://www.shorturl.com/1
 
-http://www.shorturl.com/1
+* 打开短链接，直接跳转到原始链接
 
-打开短链接，直接跳转到原始链接
-rong@debian:~$ curl "http://www.shorturl.com/1"
-
+    rong@debian:~$ curl "http://www.shorturl.com/1"
     <html>
     <head><title>302 Found</title></head>
     <body bgcolor="white">
@@ -26,8 +25,7 @@ rong@debian:~$ curl "http://www.shorturl.com/1"
     </body>
     </html>
 
-debug模式，输出原始链接
+* debug模式，输出原始链接
 
-rong@debian:~$ curl "http://www.shorturl.com/1" -b "debug=1"
-
-http://www.taobao.com
+    rong@debian:~$ curl "http://www.shorturl.com/1" -b "debug=1"
+    http://www.taobao.com

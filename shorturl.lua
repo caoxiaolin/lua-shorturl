@@ -15,5 +15,5 @@ elseif method == "POST" then
         ngx.say("please post url")
     end
 else
-    ngx.say("error")
+    ngx.exit(400)
 end

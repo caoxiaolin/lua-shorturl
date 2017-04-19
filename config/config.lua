@@ -22,5 +22,10 @@ return {
             -- connection pool size
             pool_size = 50
         }
+    },
+
+    -- ip white list for create short url
+    ip_white = {
+        "127.0.0.1"
     }
 }

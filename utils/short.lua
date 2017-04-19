@@ -6,6 +6,10 @@ local db = require "utils.db"
 local config = require "config.config"
 
 function _M:setUrl(url)
+    if not utils:in_table(ngx.var.remote_addr, config.ip_white) then
+        ngx.log(ngx.ERR, "Abnormal user try post data to service")
+        ngx.exit(403)
+    end
     local shortUrl = getShortUrl(url)
     redis:set("su_" .. shortUrl, url)
     ngx.say(config.domain .. shortUrl)
@@ -20,7 +24,17 @@ function _M:getUrl(uri)
     if oriUrl == nil then
         oriUrl = getOriUrl(uri)
     end
-    ngx.say(oriUrl)
+    if oriUrl ~= false then
+        -- debug mode
+        if ngx.var.cookie_debug == "1" then
+            ngx.say(oriUrl)
+        else
+            -- default 302
+            ngx.redirect(oriUrl)
+        end
+    else
+        ngx.exit(404)
+    end
 end
 
 function getShortUrl(url)

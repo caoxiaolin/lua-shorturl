@@ -35,10 +35,10 @@ end
 function _M:query(id)
     local sql = "SELECT * FROM `urls` WHERE id = " .. ngx.quote_sql_str(id)
     local res, err, errno, sqlstate = self:exec(sql)
-    if res and not err then
+    if res and res[1] and not err then
         return res[1]["url"], err
     else
-        return res, err
+        return false, err
     end
 end
 

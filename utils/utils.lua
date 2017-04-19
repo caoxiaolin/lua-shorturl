@@ -1,5 +1,18 @@
 local _M = {}
 
+-- 判断val是否在table中
+function _M:in_table(val, table)
+    if not table then
+        return false
+    end
+    for k, v in pairs(table) do
+        if v == val then
+            return true
+        end
+    end
+    return false
+end
+
 -- 10 to 62
 function _M:convert10To62(num)
     local res = ""

@@ -18,19 +18,13 @@ http://www.shorturl.com/1
 打开短链接，直接跳转到原始链接
 rong@debian:~$ curl "http://www.shorturl.com/1"
 
-<html>
-
-<head><title>302 Found</title></head>
-
-<body bgcolor="white">
-
-<center><h1>302 Found</h1></center>
-
-<hr><center>nginx</center>
-
-</body>
-
-</html>
+    <html>
+    <head><title>302 Found</title></head>
+    <body bgcolor="white">
+    <center><h1>302 Found</h1></center>
+    <hr><center>nginx</center>
+    </body>
+    </html>
 
 debug模式，输出原始链接
 

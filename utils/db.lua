@@ -53,4 +53,14 @@ function _M:insert(url)
     end
 end
 
+-- update
+function _M:update(id)
+    local sql = "UPDATE `urls` SET last_access_time = '" .. os.date("%Y-%m-%d %X") .. "' WHERE id = " .. ngx.quote_sql_str(id)
+    local res, err, errno, sqlstate = self:exec(sql)
+    if not err then
+        return true
+    else
+        return false
+    end
+end
 return _M

@@ -20,11 +20,16 @@ function _M:getUrl(uri)
         return 0
     end
     local uri = string.sub(uri, 2)
+    local id = utils:convert62To10(uri)
     local oriUrl = redis:get("su_" .. uri)
     if oriUrl == nil then
-        oriUrl = getOriUrl(uri)
+        oriUrl = getOriUrl(id)
+        -- reset cache
+        redis:set("su_" .. uri, oriUrl)
     end
     if oriUrl ~= false then
+        -- update last access time
+        updateLastAccessTime(id)
         -- debug mode
         if ngx.var.cookie_debug == "1" then
             ngx.say(oriUrl)
@@ -42,9 +47,13 @@ function getShortUrl(url)
     return utils:convert10To62(res)
 end
 
-function getOriUrl(uri)
-    local id = utils:convert62To10(uri)
+function getOriUrl(id)
     local res, err = db:query(id)
+    return res
+end
+
+function updateLastAccessTime(id)
+    local res = db:update(id)
     return res
 end
 

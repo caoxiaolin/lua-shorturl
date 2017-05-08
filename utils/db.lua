@@ -9,9 +9,19 @@ function _M:exec(sql)
         return
     end
 
-    db:set_timeout(config.mysql.timeout) -- 1 sec
+    -- default write
+    local mysql_config = config.mysql.conn_w
 
-    local ok, err, errcode, sqlstate = db:connect(config.mysql.conn)
+    -- read-write separation
+    if string.upper(string.sub(sql, 1, 6)) == "SELECT" then
+        -- random a machine
+        local m = math.random(table.getn(config.mysql.conn_r))
+        mysql_config = config.mysql.conn_r[m]
+    end
+   
+    db:set_timeout(mysql_config.timeout)
+
+    local ok, err, errcode, sqlstate = db:connect(mysql_config)
 
     if not ok then
         ngx.log(ngx.ERR, "failed to connect mysql: ", err, ": ", errcode, " ", sqlstate)

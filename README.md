@@ -3,7 +3,7 @@ SortURL Service Written by LUA
 
 Using nginx + lua + redis + mysql, redis as a cache, mysql persistent data
 
-mysql存储原始url，自增ID转62进制作为短链，redis缓存url，时效性1天，redis连接池提高吞吐。
+mysql存储原始url，自增ID转62进制作为短链，redis缓存url，时效性1天，redis连接池提高吞吐，mysql读写分离。
 
 支持IP白名单，用于生成短链权限控制，debug模式可直接输出url，而不是跳转
 
